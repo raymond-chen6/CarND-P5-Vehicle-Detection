@@ -2,11 +2,19 @@
 
 ## Description
 
-** This my 5th project result of Udacity self-driving car nanodegree (CarND). It required to train classifier and build a robust vehicle detect pipeline. **
+**This my 5th project result of Udacity self-driving car nanodegree (CarND). It required to train classifier and build a robust vehicle detect pipeline. I chose linear SVM as classifier and trained classifier using dataset from a combination of the GTI vehicle image database, the KITTI vision benchmark suite, and examples extracted from the project video itself. **
 
 * Udacity self-driving car nanodegree (CarND) :
 
   https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013
+
+* Vehicle dataset :
+
+  https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip
+
+* Non-vehicle dataset :
+
+  https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip
 
 
 The goals / steps of this project are the following:
