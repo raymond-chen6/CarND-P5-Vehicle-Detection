@@ -2,7 +2,7 @@
 
 ## Description
 
-**This my 5th project result of Udacity self-driving car nanodegree (CarND). It required to train classifier and build a robust vehicle detect pipeline. **
+** This my 5th project result of Udacity self-driving car nanodegree (CarND). It required to train classifier and build a robust vehicle detect pipeline. **
 
 * Udacity self-driving car nanodegree (CarND) :
 
