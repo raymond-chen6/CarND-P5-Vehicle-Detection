@@ -1,4 +1,4 @@
-**Vehicle Detection Project** # #    sd      
+# **Vehicle Detection Project**
 
 The goals / steps of this project are the following:
 
@@ -17,17 +17,15 @@ The goals / steps of this project are the following:
 [image5]: ./output_images/HOG_pix_per_cell32.png
 [image6]: ./output_images/sliding_windows1.png
 [image7]: ./output_images/find_cars_boxes.png
-[image8]: ./output_images/vehicle_detect.png
-[image9]: ./output_images/vehicle_detect_heatmap.png
-[image10]: ./output_images/vehicle_detect2.png
-[image11]: ./output_images/vehicle_detect3.png
+[image8]: ./output_images/vehicle_detect2.png
+[image9]: ./output_images/vehicle_detect3.png
+[image10]: ./output_images/vehicle_detect.png
+[image11]: ./output_images/vehicle_detect_heatmap.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
-### Writeup / README
-
 
 ### Histogram of Oriented Gradients (HOG)
 
@@ -86,7 +84,7 @@ Here's one example of find_cars_boxes :
 ![alt text][image7]
 
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+#### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 The full pipeline for a single image is implemented in vehicle_detect function in the 21th code cell of the IPython notebook. It uses various window scale in find_cars_boxes function to detect cars and using heatmap with threshold to get reliable car detection. The heat threshold is optimized to be 5 that minimized false positive and maxmized true positive.
 
