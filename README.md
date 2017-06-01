@@ -1,8 +1,8 @@
-# Vehicle Detection
+# CarND-P5 Vehicle Detection
 
 ## Description
 
-**This my 5th project result of Udacity self-driving car nanodegree (CarND). It required to train classifier and build a robust vehicle detect pipeline. I chose linear SVM as classifier and trained classifier using dataset from a combination of the GTI vehicle image database, the KITTI vision benchmark suite, and examples extracted from the project video itself. **
+**This my 5th project result of Udacity self-driving car nanodegree (CarND). It required to train classifier and build a robust vehicle detect pipeline. I chose linear SVM as classifier and trained classifier using dataset from a combination of the GTI vehicle image database, the KITTI vision benchmark suite, and examples extracted from the project video itself.**
 
 * Udacity self-driving car nanodegree (CarND) :
 
