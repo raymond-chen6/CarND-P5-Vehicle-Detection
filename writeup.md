@@ -22,6 +22,8 @@ The goals / steps of this project are the following:
 [image10]: ./output_images/vehicle_detect.png
 [image11]: ./output_images/vehicle_detect_heatmap.png
 
+The full code is in IPython notebook "./vehicle_detection_final.ipynb".
+
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
@@ -31,7 +33,7 @@ The goals / steps of this project are the following:
 
 #### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
-The code for this step is contained in the 5th code cell of the IPython notebook.  
+The code for this step is contained in the 2nd and 10th code cell of the IPython notebook. I use skimage.hog() in get_hog_features() function to extract HOG features.
 
 I started by reading in all the `vehicle` and `non-vehicle` images in the 7th code cell of the IPython notebook.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
@@ -48,8 +50,7 @@ Here is an example using the `Gray` color space and HOG parameters of `orientati
 
 I tried various combinations of parameters and found that too small orient or too large pix_per_cell would lead to less HOG features that aren't easy to be distinguished. 
 
-This illustrated as the following examples : 
-Here's an hog feature visualization example with small orient =4 (pix_per_cell=8, cell_per_block=2) and another example with large pix_per_cell=32 (orient=8, cell_per_block=2) :
+Here's hog feature visualization examples with small orient =4 (pix_per_cell=8, cell_per_block=2) and another example with large pix_per_cell=32 (orient=8, cell_per_block=2) :
 
 ![alt text][image4]
 ![alt text][image5]
