@@ -44,7 +44,7 @@ Here's a sample result before and after my software pipeline processed in a seri
 
 ![alt text][image10]
 
-The full code is in IPython notebook "./vehicle_detection_final.ipynb".
+* The full code is in IPython notebook "./vehicle_detection_final.ipynb".
 
 ## Histogram of Oriented Gradients (HOG)
 

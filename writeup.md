@@ -22,7 +22,7 @@ The goals / steps of this project are the following:
 [image10]: ./output_images/vehicle_detect.png
 [image11]: ./output_images/vehicle_detect_heatmap.png
 
-The full code is in IPython notebook "./vehicle_detection_final.ipynb".
+* The full code is in IPython notebook "./vehicle_detection_final.ipynb".
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
