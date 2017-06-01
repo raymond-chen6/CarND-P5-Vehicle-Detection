@@ -1,19 +1,13 @@
-# Vehicle Detection
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+# CarND-P4 Advanced Lane Finding
 
+## Description
 
-In this project, your goal is to write a software pipeline to detect vehicles in a video (start with the test_video.mp4 and later implement on full project_video.mp4), but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
+**This my 5th project result of Udacity self-driving car nanodegree (CarND). It required to train classifier and build a robust vehicle detect pipeline. **
 
-Creating a great writeup:
----
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
+* Udacity self-driving car nanodegree (CarND) :
 
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
+  https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013
 
-You can submit your writeup in markdown or use another method and submit a pdf instead.
-
-The Project
----
 
 The goals / steps of this project are the following:
 
@@ -24,10 +18,115 @@ The goals / steps of this project are the following:
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
 
-Here are links to the labeled data for [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) examples to train your classifier.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html), the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/), and examples extracted from the project video itself.   You are welcome and encouraged to take advantage of the recently released [Udacity labeled dataset](https://github.com/udacity/self-driving-car/tree/master/annotations) to augment your training data.  
+[//]: # (Image References)
+[image1]: ./output_images/car_not_car1.png
+[image2]: ./output_images/car_not_car2.png
+[image3]: ./output_images/HOG1.png
+[image4]: ./output_images/HOG_orient4.png
+[image5]: ./output_images/HOG_pix_per_cell32.png
+[image6]: ./output_images/sliding_windows1.png
+[image7]: ./output_images/find_cars_boxes.png
+[image8]: ./output_images/vehicle_detect2.png
+[image9]: ./output_images/vehicle_detect3.png
+[image10]: ./output_images/vehicle_detect.png
+[image11]: ./output_images/vehicle_detect_heatmap.png
 
-Some example images for testing your pipeline on single frames are located in the `test_images` folder.  To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `ouput_images`, and include them in your writeup for the project by describing what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
 
-**As an optional challenge** Once you have a working pipeline for vehicle detection, add in your lane-finding algorithm from the last project to do simultaneous lane-finding and vehicle detection!
+Here's a sample result before and after my software pipeline processed in a series of video :
 
-**If you're feeling ambitious** (also totally optional though), don't stop there!  We encourage you to go out and take video of your own, and show us how you would implement this project on a new video!
+![alt text][image10]
+
+The full code is in IPython notebook "./vehicle_detection_final.ipynb".
+
+## Histogram of Oriented Gradients (HOG)
+
+#### HOG feature extraction
+
+I started by reading in all the `vehicle` and `non-vehicle` images in the 7th code cell of the IPython notebook.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+
+![alt text][image1]
+![alt text][image2]
+
+I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
+
+Here is an example using the `Gray` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
+
+![alt text][image3]
+
+#### HOG parameter choice
+
+I tried various combinations of parameters and found that too small orient or too large pix_per_cell would lead to less HOG features that aren't easy to be distinguished. 
+
+Here's hog feature visualization examples with small orient =4 (pix_per_cell=8, cell_per_block=2) and another example with large pix_per_cell=32 (orient=8, cell_per_block=2) :
+
+![alt text][image4]
+![alt text][image5]
+
+Finally, I chose orient =8, pix_per_cell =8, and cell_per_block=2 as the final HOG parameters based on the HOG feature image complexity.
+
+#### Classifier training
+
+I trained a linear SVM using LUV color space with several combined features in the 11th code cell of the IPython notebook:
+1. spatial features with spatial_size (32,32)
+2. histgram features with hist_bins = 32
+3. gray hog features with orient = 8, pix_per_cell = 8, cell_per_block = 8
+
+
+### Sliding Window Search
+
+#### Sliding window implementation
+
+My first implementation of sliding window searching is in the 12th code cell of the IPython notebook. In the beginning, I calculate the span of the region to be searched. Then, compute the sliding step in pixel along x and y direction according to search window size (xy_window) and overlap level (xy_overlap). Finally, slide window from top left corner to right bottom of the entire span.
+
+Here's an sliding window example with y = 400~640, xy_window = (128, 128), and xy_overlap = (0.85, 0.85)
+
+![alt text][image6]
+
+After that, I tried to implement HOG sub-sampling window searching and make prediction in find_cars_boxes function in the 18th code cell of the IPython notebook.
+
+As in the 19th code cell of the IPython notebook, I test window search for different scale (0.8, 1.0, 1.2 ...) and draw the detected car boxes in different color. 
+
+Here's one example of find_cars_boxes :
+
+![alt text][image7]
+
+
+#### Examples of full pipeline and optimization
+
+The full pipeline for a single image is implemented in vehicle_detect function in the 21th code cell of the IPython notebook. It uses various window scale in find_cars_boxes function to detect cars and using heatmap with threshold to get reliable car detection. The heat threshold is optimized to be 5 that minimized false positive and maxmized true positive.
+
+Here's some examples of my full pipeline working :
+
+![alt text][image8]
+![alt text][image9]
+
+
+---
+
+### Video Implementation
+
+#### Vehicle detection video after full pipeline process
+
+Here's a [link to my video result](./project_video_out.mp4)
+
+#### Suppress false positive car detection
+
+In order to reduce false positive car detection, I create heatmap using those car boxes detected from different window search scale of find_cars_boxes. Afterwards, boxes are obtained after applying heat threshold :
+
+Here's one car detection boxes and heatmap example :
+
+![alt text][image10]
+![alt text][image11]
+
+
+---
+
+### Discussion
+
+My implementation exhaustedly searches almost half plane of the image several times and its process time is a bit long. If some tracking algorithm is implemented, it can be improved by only searching the nearby region of previous detected car. 
+
+Besides, my pipeline fails when cars are far away and there's only a few pixels can be recognized. I can use smaller scale window size to improve it but it would introduce many false positives because features in such a small window are too few to differentiate from cars and notcars. Nevertheless, some region of interest (only focus on road region) and vehicle tracking (utilize vehicle position from previous frame to improve the confidence of vehicle detection in next frame) might help to make it more robust.
+
+
+
+
