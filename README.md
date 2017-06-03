@@ -38,15 +38,15 @@ The goals / steps of this project are the following:
 [image9]: ./output_images/vehicle_detect_result.png
 
 
-Here's a sample result before and after my software pipeline processed in a series of video :
+Here's a sample result after my software pipeline processed in a series of video :
 
 ![alt text][image9]
 
 * The utility function used in this project is in Python file "./utility.py".
 
-* The utility function test in IPython notebook "./utility_test.ipynb".
+* The utility function is tested in IPython notebook "./utility_test.ipynb".
 
-* The model training is in IPython notebook "./train_model.ipynb".
+* The classifier model is trained in IPython notebook "./train_model.ipynb".
 
 * The vehicle detection pipeline and vehicle detected video generation is in IPython notebook "./vehicle_detection_final_v2.ipynb".
 
@@ -57,12 +57,12 @@ Here's a sample result before and after my software pipeline processed in a seri
 
 The code for this step is contained in ./utility.py from line 8 to 18. I use skimage.feature.hog() in get_hog_features() function to extract HOG features. 
 
-I started by reading in all the `vehicle` and `non-vehicle` images in the 3rd code cell of the IPython notebook.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+I started by reading in all the `vehicle` and `non-vehicle` images in the 3rd code cell of the IPython notebook "./vehicle_detection_final_v2.ipynb".  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
 ![alt text][image1]
 ![alt text][image2]
 
-I then explored different color spaces and different `skimage.feature.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
+I then explored different color spaces and different `skimage.feature.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.feature.hog()` output looks like.
 
 Here is an example using the `YCrCb` color space and HOG features visualization with parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
@@ -77,7 +77,7 @@ Here's hog feature visualization examples with large pix_per_cell=32 (orient=9, 
 ![alt text][image4]
 ![alt text][image5]
 
-Finally, I chose orient =9, pix_per_cell =8, and cell_per_block=2 as the final HOG parameters based on the HOG feature image complexity.
+Finally, I chose orient =  9, pix_per_cell = 8, and cell_per_block = 2 as the final HOG parameters based on the HOG feature image complexity.
 
 #### Classifier training
 
@@ -88,30 +88,30 @@ I trained a linear SVM using YCrCb color space with several combined features in
 3. YCrCb hog features with orient = 9, pix_per_cell = 8, cell_per_block = 2
 
 
-
 ### Sliding Window Search
 
 #### Sliding window implementation
 
 For efficient feature extraction in sliding window, HOG sub-sampling and prediction-making is implemented in find_cars_boxes() in ./utility.py. 
 
-As in the 3rd code cell of the IPython notebook "./vehicle_detection_final_v2.ipynb", I test window search for different scale (1.0, 1.5, 2.0, 2.5 ...) and draw the detected car boxes in different color. 
+As in the 3rd code cell of the IPython notebook "./vehicle_detection_final_v2.ipynb", I tested window search for different scale (1.0, 1.5, 2.0, 2.5 ...) and draw the detected car boxes in different colors. 
 
-Here's one example with multiple scale window searching using find_cars_boxes:
+Here's one example with multiple scale window search using find_cars_boxes:
 
 ![alt text][image6]
 
 
 #### Examples of full pipeline and optimization
 
-The full pipeline is implemented as find_cars() in vehicle_detector class in './utility.py'. It applies different scale window searching, summing heatmap over subsequence frames recorded in 'heatmap_acc' deque and applying heatmap threashold to get reliable car detection. 
+The full pipeline is implemented as find_cars() in vehicle_detector class in './utility.py'. It applies different scale window search, summing heatmap over subsequence frames recorded in 'heatmap_acc' deque and applying heatmap threashold to get reliable vehicle detection. 
 
-Here's an example of vehicle detected bounding boxes with different scale window searching, its heatmap after applying threshold and final detected result :
+Here's an example of vehicle detected bounding boxes with different scale window search, its heatmap after applying threshold and final detected result :
 
 ![alt text][image7]
 ![alt text][image8]
 ![alt text][image9]
 
+The deque records 3 heatmaps for the subsequent 3 frames and heat threshold is optimized to be 8 that tried to minimize false positive and maxmize true positive.
 
 ---
 
@@ -123,7 +123,7 @@ Here's a [link to my video result](./project_video_v2_out.mp4)
 
 #### Suppress false positive car detection
 
-In python file './utility.py', a 'heatmap_acc' deque is maintained in vehicle_detector class to record subsequence frames. By summing heatmap from different window search scale of find_cars_boxes() in subsequence frames and applying higher heatmap threshold than threshold tested in single frame, false positives are suppressed.
+In python file './utility.py', a 'heatmap_acc' deque is maintained in vehicle_detector class to record subsequent frames. By summing heatmap from different scale window search in subsequent frames and applying higher heatmap threshold than threshold tested in single frame, false positives are suppressed.
 
 
 ---
