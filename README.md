@@ -2,7 +2,7 @@
 
 ## Description
 
-**This my 5th project result of Udacity self-driving car nanodegree (CarND) term 1. It's required to train a vehicle/not-vehicle classifier, build a robust vehicle detection pipeline and generate video with bounding boxes of detected vehicles for a given video. I chose linear SVM as classifier and trained classifier using dataset from a combination of the GTI vehicle image database, the KITTI vision benchmark suite, and examples extracted from the project video itself.**
+**This is my 5th project result of Udacity self-driving car nanodegree (CarND) term 1. It's required to train a vehicle/not-vehicle classifier, build a robust vehicle detection pipeline and generate video with bounding boxes of detected vehicles for a given video. I chose linear SVM as classifier and the classifier is trained using dataset from a combination of the GTI vehicle image database, the KITTI vision benchmark suite, and examples extracted from the project video itself.**
 
 * Udacity self-driving car nanodegree (CarND) :
 
@@ -62,7 +62,7 @@ I started by reading in all the `vehicle` and `non-vehicle` images in the 3rd co
 ![alt text][image1]
 ![alt text][image2]
 
-I then explored different color spaces and different `skimage.feature.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.feature.hog()` output looks like.
+Then, I explored different color spaces and different `skimage.feature.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.feature.hog()` output looks like.
 
 Here is an example using the `YCrCb` color space and HOG features visualization with parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
